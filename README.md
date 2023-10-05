@@ -103,6 +103,27 @@
 - Salvar o arquivo `/etc/fstab`.
 - Criar um novo diretório para o usuário dheymisonnunes usando o comando `sudo mkdir /mnt/nfs/dheymisonnunes`.
 
+- Para aumentar a segurança e exercer maior controle sobre o fluxo de tráfego na rede, a escolha foi instalar o firewalld.
+
+```
+sudo yum install firewalld
+```
+
+Depois de concluir a instalação, é possível ativar e iniciar o serviço:
+```
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+```
+Para garantir a funcionalidade do NFS, é preciso configurar as permissões das portas associadas, que compreendem as portas 111 e 2049 (NFS). Para realizar essa configuração, execute os comandos a seguir:
+
+```
+sudo firewall-cmd --add-service=nfs --permanent
+sudo firewall-cmd --add-service=rpc-bind --permanent
+sudo firewall-cmd --reload
+```
+
+Assim, garantiremos a continuidade da conexão com o cliente durante a sua realização.
+
 ### Configurar o Apache.
 
 - Executar o comando `sudo yum update -y` para atualizar o sistema.
